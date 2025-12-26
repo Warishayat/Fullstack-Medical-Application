@@ -9,10 +9,7 @@ from langchain_core.documents import Document
 import os
 
 load_dotenv()
-
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-
-
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")    
 
 def load_model():
     Model = ChatGroq(
@@ -66,8 +63,18 @@ def chunks_and_overlap(docs: list) -> list:
 
 
 
-def download_embeddings_models():
-  embeddings = HuggingFaceEmbeddings(
-      model="sentence-transformers/all-MiniLM-L6-v2",
-  )
-  return embeddings
+
+
+print("Hello world")
+if __name__ == "__main__":
+   print("Hello")
+   path = r"C:\Users\HP\Desktop\Medical-Chatbot\Fullstack-Medical-Application\Backend\Data"
+   Docs=load_pdfs_from_directory(dir_path=path)
+   print("*************")
+   print("*************")
+   print("*************")
+   filter_data = filtered_docs(docs=Docs)
+   print(filter_data[12])
+   print("*************")
+   print("*************")
+   print("*************")
