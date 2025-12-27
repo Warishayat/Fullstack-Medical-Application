@@ -20,7 +20,7 @@ embeddings = download_embeddings_models()
 
 doc_search = PineconeVectorStore.from_existing_index(
     index_name=index_name,
-    embeddings=embeddings
+    embedding=embeddings
 )
 retrirver=doc_search.as_retriever(search_type="similarity", search_kwargs={"k":3})
 

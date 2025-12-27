@@ -9,8 +9,8 @@ router = APIRouter(
 )
 
 
-@router.post("/register", response_model=RegistrationResponse)
-async def RegisterUser(data: registerValidation):
+@router.post("/register")
+def RegisterUser(data: registerValidation):
     auth_response = client.auth.sign_up({
         "name":data.name,
         "email": data.email,
@@ -24,11 +24,10 @@ async def RegisterUser(data: registerValidation):
         )
 
     user_id = auth_response.user.id
-    await client.table("Users").insert({
-        "id": user_id,
+    client.table("Users").insert({
         "name":data.name,
         "email": data.email,
-        "username": data.username
+        "password": data.password
     }).execute()
 
     return {
@@ -38,8 +37,8 @@ async def RegisterUser(data: registerValidation):
 
 
 
-@router.post("/login", response_model=LoginResponse)
-async def LoginUser(data: LoginValidation):
+@router.post("/login")
+def LoginUser(data: LoginValidation):
 
     response = client.auth.sign_in_with_password({
         "email": data.email,
