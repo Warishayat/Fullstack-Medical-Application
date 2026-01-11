@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from Router import auth,chat
+from Router import auth,chat,message
 
 
-app = FastAPI()
+app = FastAPI(title="AI-Medical-Application",description="End to End working as a Saas Application. we have authentication for user pinecone vectorstore for storing the vectors, Groq large language model, react javascript framework for frontend Fastapi for backend langchain and langgraph for orchestration framework docker for deployment.",version="0.1")
 
 app.add_middleware(
     CORSMiddleware,
@@ -16,14 +16,15 @@ app.add_middleware(
 @app.get("/")
 def welcome():
     return{
-        "status":200,
-        "message" : """
-        These are some endpoints which will work
-        1:--------------> /user/register
-        2:--------------> /user/login
-        3:--------------> /medical/chat
-        """
+        "status":201,
+        "message" :"All routes are working fine"
     }
 
 app.include_router(auth.router)
 app.include_router(chat.router)
+app.include_router(message.router)
+
+
+
+if __name__ == "__main__":
+    print("App is working up. Lets test everything on the app")

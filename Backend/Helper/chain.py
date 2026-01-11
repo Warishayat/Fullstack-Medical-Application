@@ -19,7 +19,6 @@ prompt = ChatPromptTemplate.from_template(
 You are a helpful medical assistant.
 Answer the question ONLY using the context below.
 If the answer is not in the context, say "I don't know".
-
 Context:
 {context}
 
@@ -38,12 +37,14 @@ chain = (
     | StrOutputParser()
 )
 
-while True:
-    question = input("Ask me a question: ")
 
-    if question.lower() in ["exit", "bye", "quit"]:
-        print("Goodbye")
-        break
 
-    answer = chain.invoke(question)
-    print("Model Answer:", answer)
+if __name__ == "__main__":
+    while True:
+        question = input("Ask me a question: ")
+        if question.lower() in ["exit", "bye", "quit"]:
+            print("Good bye")
+            break
+        answer = chain.invoke(question)
+        print("Model Answer:", answer)
+print("All good!!!!!! You all are all set.")

@@ -50,22 +50,18 @@ vectorstore = PineconeVectorStore(
 )
 
 if __name__ == "__main__":
-
+    print("App is Loading please wait......................")
     DATA_PATH = r"C:\Users\HP\Desktop\Medical-Chatbot\Fullstack-Medical-Application\Backend\Data"
-
     print("Loading PDFs...")
     documents = load_pdfs_from_directory(DATA_PATH)
-
+    print("Data is loaded from the directory")
     print(f"Loaded {len(documents)} pages")
-
     print("Filtering the data..............")
     filter_docs = filtered_docs(docs=documents)
     print("Document has been filterd............")
-
     print("Splitting documents...")
     chunks = chunks_and_overlap(filter_docs)
     print(f"Created {len(chunks)} chunks")
-
     print("Uploading to Pinecone...")
     vectorstore.add_documents(chunks)
     print("Vectorstore ingestion completed")

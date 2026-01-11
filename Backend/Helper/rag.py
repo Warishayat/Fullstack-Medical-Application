@@ -62,9 +62,6 @@ def chunks_and_overlap(docs: list) -> list:
     return splitter.split_documents(docs)
 
 
-
-
-
 print("Hello world")
 if __name__ == "__main__":
    print("Hello")
