@@ -8,7 +8,6 @@ export default function Footer() {
     <footer className="bg-green-900 text-green-50 pt-12 pb-6">
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
         
-        {/* Brand Section */}
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-white">
             Medi<span className="text-green-400">Bot</span>.ai
@@ -35,7 +34,6 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Resources */}
         <div>
           <h3 className="text-white font-bold mb-4 uppercase text-xs tracking-widest">Resources</h3>
           <ul className="space-y-2 text-sm">
@@ -46,7 +44,6 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Newsletter */}
         <div>
           <h3 className="text-white font-bold mb-4 uppercase text-xs tracking-widest">Stay Updated</h3>
           <p className="text-sm text-green-200 mb-4">Get the latest health tech updates.</p>
@@ -63,7 +60,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar */}
       <div className="max-w-7xl mx-auto px-4 mt-12 pt-6 border-t border-green-800 text-center text-sm text-green-300">
         <p className="flex items-center justify-center gap-1">
           © {currentYear} MediBot.ai. Built with <FaHeart className="text-red-500 text-xs" /> for a healthier world.
