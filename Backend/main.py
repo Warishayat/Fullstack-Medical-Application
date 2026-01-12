@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from Router import auth,chat,message
-
+import uvicorn
 
 app = FastAPI(title="AI-Medical-Application",description="End to End working as a Saas Application. we have authentication for user pinecone vectorstore for storing the vectors, Groq large language model, react javascript framework for frontend Fastapi for backend langchain and langgraph for orchestration framework docker for deployment.",version="0.1")
 
