@@ -19,7 +19,7 @@ export default function Login() {
     const toastId = toast.loading("Verifying credentials...");
 
     try {
-      const res = await axios.post("http://127.0.0.1:8000/user/login", form);
+      const res = await axios.post("https://fullstack-medical-application-apis.onrender.com/user/login", form);
       
       // DEBUG: Isay console mein check karein ke backend kiya bhej raha hai
       console.log("Login Response:", res.data);

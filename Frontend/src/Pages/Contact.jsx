@@ -25,7 +25,7 @@ export default function Contact() {
     try {
       // 3. API Call with Authorization Header
       await axios.post(
-        "http://127.0.0.1:8000/chat/message_us", 
+        "https://fullstack-medical-application-apis.onrender.com/chat/message_us", 
         form,
         {
           headers: {

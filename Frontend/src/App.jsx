@@ -9,7 +9,6 @@ import Assistant from "./Pages/Assistant";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
 
-// Protected Route: Check karta hai ke token hai ya nahi
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem("token");
   return token ? children : <Navigate to="/login" replace />;

@@ -28,7 +28,7 @@ export default function Assistant() {
     setQuestion("");
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/medical/chat", {
+      const res = await fetch("https://fullstack-medical-application-apis.onrender.com/medical/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

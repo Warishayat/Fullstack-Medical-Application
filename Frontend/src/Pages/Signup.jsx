@@ -14,7 +14,7 @@ export default function Signup() {
 
     setLoading(true);
     try {
-      await axios.post("http://127.0.0.1:8000/user/register", form);
+      await axios.post("https://fullstack-medical-application-apis.onrender.com/user/register", form);
       toast.success("Account created! Please login.");
       navigate("/login");
     } catch (err) {
