@@ -1,9 +1,11 @@
-**AI-Powered Medical Assistant with User-Specific Persistent Conversations**
+### **AI-Powered Medical Assistant with User-Specific Persistent Conversations**
 
 <p align="center">
   <img src="https://img.shields.io/badge/FastAPI-Backend-green?style=for-the-badge">
   <img src="https://img.shields.io/badge/React-Frontend-blue?style=for-the-badge">
-  <img src="https://img.shields.io/badge/LangGraph-Orchestration-purple?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Supabase-Authentication-3ECF8E?style=for-the-badge">
+  <img src="https://img.shields.io/badge/LangChain-Orchestration-purple?style=for-the-badge">
+  <img src="https://img.shields.io/badge/LangGraph-Persistent%20Memory-orange?style=for-the-badge">
   <img src="https://img.shields.io/badge/Docker-Deployment-cyan?style=for-the-badge">
 </p>
 
@@ -27,50 +29,85 @@
 
 ## 📌 Project Overview
 
-**Fullstack Medical AI Application** is an end-to-end **SaaS-style AI medical assistant** that enables:
+**Fullstack Medical AI Application** is a **production-grade SaaS AI medical assistant** that enables secure authentication, intelligent medical conversations, and **user-specific persistent chat memory**.
 
-* 🔐 Secure user authentication
-* 🧠 AI-powered medical chat
-* 🔄 **User-specific persistent conversations using LangGraph**
-* 🧾 Vector-based memory with Pinecone
-* 🌐 Separate scalable frontend & backend deployments
+The system uses:
 
-Each user continues their **own chat history**, even after logout, powered by **LangGraph state persistence configured with user ID**.
+* **Supabase** for authentication & user management
+* **LangChain** for LLM workflow orchestration
+* **LangGraph** for stateful, persistent, per-user conversations
+
+Each user continues their **own chat history** across sessions, securely isolated using their **Supabase user ID**.
 
 ---
 
 ## ✨ Key Features
 
-### 🧑‍⚕️ AI Medical Assistant
+### 🔐 Supabase Authentication
+
+* Secure signup & login
+* JWT-based user sessions
+* Supabase User ID used across backend
+* Backend validates authenticated users only
+
+---
+
+### 🧠 AI Medical Assistant
 
 * Symptom-based medical conversations
-* Context-aware responses
-* LLM-powered reasoning
+* Context-aware reasoning
+* LLM-powered responses using Groq
 
-### 🔐 Authentication System
+---
 
-* User signup & login
-* Token-based secure access
-* User-specific chat isolation
+### 🔄 LangChain + LangGraph Orchestration (Core Feature)
 
-### 🧠 LangGraph-Based Persistence (NEW ✨)
+#### 🧩 LangChain
 
-* Each user has a **separate conversation graph**
-* Chat state maintained using **user ID**
-* No conversation mixing between users
-* Scalable orchestration layer
+* Prompt templates
+* Tool chaining
+* LLM integration
+* Vector search via Pinecone
 
-### 🗂 Vector Store (Pinecone)
+#### 🕸 LangGraph (Persistence Layer)
+
+* **User-specific conversation graphs**
+* Chat state bound to **Supabase user ID**
+* Persistent memory across requests
+* No conversation leakage between users
+
+✅ Each user has an **independent conversation graph**
+✅ Users resume chats after logout/login
+✅ Scalable orchestration architecture
+
+---
+
+## 🧠 How User-Specific Persistence Works
+
+```text
+User logs in (Supabase)
+        ↓
+Supabase returns authenticated user ID
+        ↓
+Backend extracts user ID from token
+        ↓
+LangGraph initialized with user-specific config
+        ↓
+Conversation state stored & retrieved per user
+```
+
+✔ Fully isolated user sessions
+✔ Persistent AI memory
+✔ Production-ready design
+
+---
+
+## 🗂 Vector Memory (Pinecone)
 
 * Medical conversation embeddings
-* Fast semantic search
-* Long-term memory support
-
-### ⚙️ Scalable Architecture
-
-* Frontend & backend deployed independently
-* Dockerized backend
-* Cloud-ready architecture
+* Semantic retrieval
+* Long-term contextual memory
+* Optimized for fast search
 
 ---
 
@@ -80,38 +117,18 @@ Each user continues their **own chat history**, even after logout, powered by **
 
 * React.js
 * Axios
-* Tailwind / CSS
+* Supabase Client SDK
 * Hosted on Render
 
 ### 🔹 Backend
 
 * FastAPI
+* Supabase Auth (JWT verification)
 * LangChain
-* **LangGraph (User-based persistence)**
-* Pinecone Vector Database
+* **LangGraph (Stateful Orchestration)**
+* Pinecone Vector DB
 * Groq LLM
-* JWT Authentication
 * Docker
-
----
-
-## 🧠 LangGraph User Persistence (How it Works)
-
-```text
-User Login
-   ↓
-User ID extracted from token
-   ↓
-LangGraph initialized with user-specific config
-   ↓
-Conversation state stored & retrieved per user
-   ↓
-User continues previous chat seamlessly
-```
-
-✔ Each user has **isolated graph state**
-✔ Chat resumes even after refresh or re-login
-✔ Production-ready orchestration
 
 ---
 
@@ -123,8 +140,8 @@ Fullstack-Medical-Application/
 ├── backend/
 │   ├── main.py
 │   ├── Router/
-│   │   ├── auth.py
-│   │   ├── chat.py
+│   │   ├── auth.py        # Supabase auth handling
+│   │   ├── chat.py        # LangGraph orchestration
 │   │   └── message.py
 │   ├── Helper/
 │   ├── Dockerfile
@@ -133,7 +150,8 @@ Fullstack-Medical-Application/
 ├── frontend/
 │   ├── src/
 │   ├── components/
-│   └── pages/
+│   ├── pages/
+│   └── supabaseClient.js
 │
 └── README.md
 ```
@@ -162,16 +180,16 @@ docker run -p 8000:8000 -e PORT=8000 medical-ai-backend
 
 ## 🔑 Environment Variables
 
-Backend requires the following:
-
 ```env
+SUPABASE_URL=your_url
+SUPABASE_ANON_KEY=your_key
 GROQ_API_KEY=your_key
 GOOGLE_API_KEY=your_key
 HUGGINGFACEHUB_ACCESS_TOKEN=your_key
 PINECONE_API_KEY=your_key
 ```
 
-(Set these in **Render Environment Variables**)
+(Set in **Render → Environment Variables**)
 
 ---
 
@@ -180,8 +198,6 @@ PINECONE_API_KEY=your_key
 ```http
 GET /
 ```
-
-**Response**
 
 ```json
 {
@@ -192,21 +208,24 @@ GET /
 
 ---
 
-## 🌍 Deployment
+## 🌍 Deployment Architecture
 
-* Frontend → Render (Static Web Service)
+* Frontend → Render (Static Web App)
 * Backend → Render (Docker Web Service)
-* Database → Pinecone
+* Authentication → Supabase
+* Vector DB → Pinecone
+* Orchestration → LangChain + LangGraph
 * LLM → Groq
 
 ---
 
 ## 📈 Future Enhancements
 
-* 🧾 Medical report uploads
-* 🗣 Voice-based interaction
+* 🧾 Medical document upload & analysis
+* 🗣 Voice-based medical assistant
 * 📊 User medical history dashboard
 * 🏥 Doctor recommendation system
+* 🧠 Multi-agent LangGraph workflows
 
 ---
 
@@ -214,7 +233,8 @@ GET /
 
 **Waris Hayat**
 AI / ML Engineer
-🔗 GitHub: (https://github.com/Warishayat)
+
+🔗 GitHub: [https://github.com/Warishayat]
 
 ---
 
@@ -225,8 +245,8 @@ If you like this project:
 ⭐ Star the repo
 🍴 Fork it
 🐛 Open issues
-💡 Suggest improvements
+💡 Suggest features
 
 ---
 
-Bas batao 👍
+add kar sakta hoon — just bolo 👍
