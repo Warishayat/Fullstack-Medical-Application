@@ -9,18 +9,24 @@ from langchain_core.messages import AIMessage, HumanMessage, BaseMessage
 from langgraph.graph import StateGraph, START, END
 from langgraph.graph.message import add_messages
 from langgraph.checkpoint.memory import MemorySaver
-
+from langchain_groq import ChatGroq
 from Helper.vectorstore import vectorstore
-from Helper.rag import load_model
+
+
 
 
 load_dotenv()
+
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")    
 
 class State(TypedDict):
     messages: Annotated[List[BaseMessage], add_messages]
 
 retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
-model = load_model()
+model=ChatGroq(
+    model="openai/gpt-oss-20b",
+    api_key=GROQ_API_KEY
+    )
 
 def format_docs(docs: list) -> str:
     return "\n\n".join(doc.page_content for doc in docs)

@@ -4,12 +4,15 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.documents import Document
 from Helper.vectorstore import vectorstore
-from Helper.rag import load_model
+from langchain_groq import ChatGroq
 
 load_dotenv()
-
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")    
 retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
-model = load_model()
+model=ChatGroq(
+    model="openai/gpt-oss-20b",
+    api_key=GROQ_API_KEY
+    )
 
 def format_docs(docs: list[Document]) -> str:
     return "\n\n".join(doc.page_content for doc in docs)
