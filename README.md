@@ -249,4 +249,3 @@ If you like this project:
 
 ---
 
-add kar sakta hoon — just bolo 👍
