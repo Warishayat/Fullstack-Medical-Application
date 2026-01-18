@@ -14,7 +14,19 @@ export default function Signup() {
 
     setLoading(true);
     try {
-      await axios.post("https://fullstack-medical-application-apis.onrender.com/user/register", form);
+      const res = await axios.post(
+    "https://fullstack-medical-application-apis.onrender.com/user/register",
+    {
+      name,
+      email,
+      password
+    },
+    {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+  );
       toast.success("Account created! Please login.");
       navigate("/login");
     } catch (err) {
